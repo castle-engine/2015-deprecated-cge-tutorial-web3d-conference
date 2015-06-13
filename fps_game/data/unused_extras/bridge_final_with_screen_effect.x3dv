@@ -27,7 +27,7 @@ Inline {
 DEF BloodEffect ScreenEffect {
   shaders DEF Shader ComposedShader {
     inputOutput SFNode bloodyTexture ImageTexture {
-      url "textures/blood.png"
+      url "blood.png"
       repeatS TRUE
       repeatT TRUE
     }
