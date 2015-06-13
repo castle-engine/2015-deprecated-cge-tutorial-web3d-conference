@@ -25,6 +25,15 @@ Inline {
   url "bridge.x3d"
 }
 
+Background {
+  backUrl "skies/sky_back.png"
+  bottomUrl "skies/sky_bottom.png"
+  frontUrl "skies/sky_front.png"
+  leftUrl "skies/sky_left.png"
+  rightUrl "skies/sky_right.png"
+  topUrl "skies/sky_top.png"
+}
+
 # Add SpotLight casting shadows ------------------------------------------------
 
 DEF Sun SpotLight {
