@@ -14,11 +14,11 @@ Transform {
       geometry QuadSet {
         coord Coordinate {
           point [
-            # The sizes are set to keep image aspect ratio of background image.
-            0       0 0,
-            7667    0 0,
-            7667 1442 0,
-            0    1442 0,
+            # The size corresponds to the size of the background image, to keep the aspect ratio.
+               0   0 0,
+            2566   0 0,
+            2566 721 0,
+               0 721 0,
           ]
         }
         texCoord TextureCoordinate {
