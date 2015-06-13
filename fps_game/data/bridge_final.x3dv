@@ -47,11 +47,11 @@ DEF Sun SpotLight {
   # In a very trivial cases, it's enough to just say "shadows TRUE",
   # although you may want to adjust other settings.
 
-  shadows TRUE
-  defaultShadowMap GeneratedShadowMap {
-    size 4096
-    update "ALWAYS"
-    bias 4
-    scale 4
-  }
+  # shadows TRUE
+  # defaultShadowMap GeneratedShadowMap {
+  #   size 4096
+  #   update "ALWAYS"
+  #   bias 4
+  #   scale 4
+  # }
 }
