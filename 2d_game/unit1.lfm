@@ -1,0 +1,21 @@
+object Form1: TForm1
+  Left = 461
+  Height = 625
+  Top = 223
+  Width = 953
+  Caption = 'Form1'
+  ClientHeight = 625
+  ClientWidth = 953
+  OnCreate = FormCreate
+  LCLVersion = '1.3'
+  object Castle2DControl1: TCastle2DControl
+    Left = 6
+    Height = 611
+    Top = 8
+    Width = 944
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    OnPress = Castle2DControl1Press
+    OnUpdate = Castle2DControl1Update
+    TabOrder = 0
+  end
+end

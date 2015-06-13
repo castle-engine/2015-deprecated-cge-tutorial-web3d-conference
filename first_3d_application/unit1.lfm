@@ -1,0 +1,30 @@
+object Form1: TForm1
+  Left = 664
+  Height = 533
+  Top = 147
+  Width = 603
+  Caption = 'Form1'
+  ClientHeight = 533
+  ClientWidth = 603
+  OnCreate = FormCreate
+  LCLVersion = '1.3'
+  object Button1: TButton
+    Left = 8
+    Height = 30
+    Top = 496
+    Width = 178
+    Anchors = [akLeft, akBottom]
+    AutoSize = True
+    Caption = 'Sample ShowMessage'
+    OnClick = Button1Click
+    TabOrder = 0
+  end
+  object CastleControl1: TCastleControl
+    Left = 8
+    Height = 480
+    Top = 8
+    Width = 584
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    TabOrder = 1
+  end
+end

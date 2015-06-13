@@ -1,0 +1,74 @@
+#X3D V3.2 utf8
+PROFILE Interchange
+
+NavigationInfo {
+  #headlight FALSE
+  type ["WALK", "ANY"]
+  # leave default avatarSize, as our model tries to be adjusted to that,
+  # approx 1 unit = 1 meter, with player height = 1.75 meters
+  speed 5
+}
+
+# Camera settings "encoded" in the VRML declaration below :
+# direction 0.9622886776924133 0.0329807139933109 -0.2700241208076477
+# up -0.0317542664706707 0.9994559288024902 0.008910440839827
+# gravityUp 0 1 0
+Viewpoint {
+  position -46.300395965576172 -4.4862656593322754 4.8882923126220703
+  orientation 0.0217522922903299 -0.9996275305747985 0.0164888687431812 1.2975844144821167
+}
+
+Inline {
+  url "bridge.x3d"
+}
+
+# Add ScreenEffect -----------------------------------------------------------
+
+DEF BloodEffect ScreenEffect {
+  shaders DEF Shader ComposedShader {
+    inputOutput SFNode bloodyTexture ImageTexture {
+      url "textures/blood.png"
+      repeatS TRUE
+      repeatT TRUE
+    }
+    inputOnly SFTime time
+    inputOutput SFFloat pulsatingFrequency 1.0
+    language "GLSL"
+    parts ShaderPart { type "FRAGMENT" url "data:text/plain,
+ivec2 screen_position();
+vec4 screen_get_color(ivec2 position);
+
+uniform sampler2D bloodyTexture;
+uniform float time;
+uniform float pulsatingFrequency;
+
+const vec2 bloodyTextureSize = vec2(512.0, 512.0);
+
+void main (void)
+{
+  gl_FragColor = screen_get_color(screen_position());
+
+  vec2 bloodCoord = vec2(screen_position()) / bloodyTextureSize;
+
+  float t = time * pulsatingFrequency; /* scale this to slow / faster the pulsating effect */
+  t = fract(t);
+  if (t < 0.5) {
+    t = t * 2.0;
+  } else {
+    t = 1.0 - (t - 0.5) * 2.0;
+  }
+
+  gl_FragColor = mix(gl_FragColor,
+    gl_FragColor * texture2D(bloodyTexture, bloodCoord), t);
+}
+" } } }
+
+DEF Timer TimeSensor { stopTime 1 loop TRUE }
+ROUTE Timer.elapsedTime TO Shader.time
+
+# Start Timer when world is loaded (otherwise the elapsedTime
+# would be huge at the start, and this is bad --- calculation using it
+# are not precise).
+# (We could use KambiNavigationInfo.timeOriginAtStart instead.)
+DEF PS ProximitySensor { size 10000000 10000000 10000000 }
+ROUTE PS.enterTime TO Timer.startTime

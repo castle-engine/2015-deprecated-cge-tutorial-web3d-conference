@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<level
+  name="bridge"
+  type="Level"
+  scene="bridge_final.x3dv"
+  title="Bridge"
+  placeholders="blender"
+/>

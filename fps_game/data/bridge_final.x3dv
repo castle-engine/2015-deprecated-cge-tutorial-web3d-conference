@@ -1,0 +1,48 @@
+#X3D V3.2 utf8
+PROFILE Interchange
+
+NavigationInfo {
+  #headlight FALSE
+  type ["WALK", "ANY"]
+  # avatarSize (http://www.web3d.org/documents/specifications/19775-1/V3.2/Part01/components/navigation.html#NavigationInfo)
+  # - The first value shall be the allowable distance between the user's position and any collision geometry (as specified by a Collision node ) before a collision is detected.
+  # - The second shall be the height above the terrain at which the browser shall maintain the viewer.
+  # - The third shall be the height of the tallest object over which the viewer can move.
+  avatarSize [ 0.25 1.4 0.75 ]
+  speed 5
+}
+
+# Camera settings "encoded" in the VRML declaration below :
+# direction 0.9622886776924133 0.0329807139933109 -0.2700241208076477
+# up -0.0317542664706707 0.9994559288024902 0.008910440839827
+# gravityUp 0 1 0
+Viewpoint {
+  position -46.300395965576172 -4.4862656593322754 4.8882923126220703
+  orientation 0.0217522922903299 -0.9996275305747985 0.0164888687431812 1.2975844144821167
+}
+
+Inline {
+  url "bridge.x3d"
+}
+
+# Add SpotLight casting shadows ------------------------------------------------
+
+DEF Sun SpotLight {
+  location -3 10 0
+  direction 0 -1 0
+  cutOffAngle 1
+
+  # Uncomment lines below to get shadow by shadow maps.
+  # See http://castle-engine.sourceforge.net/x3d_extensions_shadow_maps.php
+  # for a full documentation.
+  # In a very trivial cases, it's enough to just say "shadows TRUE",
+  # although you may want to adjust other settings.
+
+  shadows TRUE
+  defaultShadowMap GeneratedShadowMap {
+    size 4096
+    update "ALWAYS"
+    bias 4
+    scale 4
+  }
+}

@@ -1,0 +1,9 @@
+*~
+2d_game/lib/
+first_3d_application/lib/
+fps_game/lib/
+project1
+project1.exe
+*.lps
+*.res
+*.blend1
