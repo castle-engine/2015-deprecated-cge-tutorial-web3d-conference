@@ -73,6 +73,8 @@ end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
+  OptimizeExtensiveTransformations := true;
+
   Background := T2DScene.Create(Application);
   Background.Load(ApplicationData('background.x3dv'));
   Background.Spatial := [ssRendering, ssDynamicCollisions];
@@ -96,4 +98,3 @@ begin
 end;
 
 end.
-
