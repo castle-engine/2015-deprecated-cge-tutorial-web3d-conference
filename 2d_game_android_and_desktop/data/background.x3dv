@@ -1,0 +1,35 @@
+#X3D V3.2 utf8
+PROFILE Interchange
+
+Transform {
+  children [
+    Shape {
+      appearance Appearance {
+        texture ImageTexture {
+          url "background.png"
+          repeatS FALSE
+          repeatT FALSE
+        }
+      }
+      geometry QuadSet {
+        coord Coordinate {
+          point [
+            # The size corresponds to the size of the background image, to keep the aspect ratio.
+               0   0 0,
+            2566   0 0,
+            2566 721 0,
+               0 721 0,
+          ]
+        }
+        texCoord TextureCoordinate {
+          point [
+            0 0,
+            1 0,
+            1 1,
+            0 1,
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="example_2d_game"
+  standalone_source="example_2d_game_standalone.lpr"
+  android_source="example_2d_game_android.lpr"
+  qualified_name="net.sourceforge.castleengine.example2d"
+  screen_orientation="landscape"
+  author="Michalis Kamburelis">
+  <!-- <icons> -->
+  <!--   <icon path="icon.png" /> -->
+  <!-- </icons> -->
+  <version value="0.1" code="1" />
+</project>
