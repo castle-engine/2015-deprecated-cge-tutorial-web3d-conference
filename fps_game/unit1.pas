@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  Buttons, ComCtrls, ExtCtrls, CastleControl, CastlePlayer, X3DNodes;
+  Buttons, ExtCtrls, CastleControl, CastlePlayer, X3DNodes;
 
 type
   TForm1 = class(TForm)
@@ -35,7 +35,7 @@ implementation
 {$R *.lfm}
 
 uses CastleLevels, CastleResources, CastleUIControls,
-  CastleVectors, CastleCreatures, Castle3D, CastleSceneCore, Math;
+  CastleVectors, CastleCreatures, Castle3D;
 
 type
   TGame2DControls = class(TUIControl)
