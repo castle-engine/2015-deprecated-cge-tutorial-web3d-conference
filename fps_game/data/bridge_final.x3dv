@@ -49,7 +49,7 @@ DEF Sun SpotLight {
 
   # shadows TRUE
   # defaultShadowMap GeneratedShadowMap {
-  #   size 4096
+  #   size 1024 # try 4096 if you have modern GPU
   #   update "ALWAYS"
   #   bias 4
   #   scale 4
