@@ -1,17 +1,17 @@
 object Form1: TForm1
   Left = 77
-  Height = 796
+  Height = 790
   Top = 61
-  Width = 1088
+  Width = 1085
   Caption = 'Form1'
-  ClientHeight = 796
-  ClientWidth = 1088
+  ClientHeight = 790
+  ClientWidth = 1085
   LCLVersion = '1.3'
   object CastleControl1: TCastleControl
     Left = 8
-    Height = 704
+    Height = 698
     Top = 8
-    Width = 1072
+    Width = 1069
     Anchors = [akTop, akLeft, akRight, akBottom]
     OnOpen = CastleControl1Open
     OnUpdate = CastleControl1Update
@@ -22,6 +22,7 @@ object Form1: TForm1
     Height = 59
     Top = 720
     Width = 164
+    Anchors = [akLeft, akBottom]
     Caption = 'SPAWN'
     OnClick = Button1Click
   end
@@ -30,12 +31,13 @@ object Form1: TForm1
     Height = 59
     Top = 720
     Width = 141
+    Anchors = [akLeft, akBottom]
     Caption = 'KILL'
     OnClick = SpeedButton2Click
   end
   object Timer1: TTimer
     OnTimer = Timer1Timer
-    left = 1016
-    top = 736
+    left = 1024
+    top = 728
   end
 end
