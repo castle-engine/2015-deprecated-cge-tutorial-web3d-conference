@@ -83,7 +83,7 @@ var
   V: TVector3Single;
 begin
   V := Sun.Location;
-  V[2] := Sin(CastleControl1.SceneManager.MainScene.Time.Seconds) * 10;
+  V[2] := Sin(CastleControl1.SceneManager.MainScene.CurrentTime) * 10;
   Sun.Location := V;
 end;
 
