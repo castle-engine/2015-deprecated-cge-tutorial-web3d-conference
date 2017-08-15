@@ -12,7 +12,7 @@ var
 
 implementation
 
-uses Classes, SysUtils,
+uses Classes, SysUtils, Math,
   Castle2DSceneManager, Castle3D, CastleVectors, CastleKeysMouse,
   CastleFilesUtils, CastleSceneCore, CastleUtils;
 

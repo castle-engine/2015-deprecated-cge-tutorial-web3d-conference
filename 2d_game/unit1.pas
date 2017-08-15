@@ -31,7 +31,8 @@ implementation
 
 {$R *.lfm}
 
-uses CastleFilesUtils, CastleSceneCore, CastleUtils;
+uses Math,
+  CastleFilesUtils, CastleSceneCore, CastleUtils;
 
 procedure TForm1.Castle2DControl1Update(Sender: TObject);
 
