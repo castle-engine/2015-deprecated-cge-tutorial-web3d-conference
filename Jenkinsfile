@@ -14,16 +14,19 @@ pipeline {
     }
   }
   stages {
+    /* TODO: Using lazbuild from Jenkins doesn't work now.
     stage('Build With Lazarus') {
       steps {
-        sh 'lazbuild $CASTLE_ENGINE_PATH/packages/castle_base.lpk'
-        sh 'lazbuild $CASTLE_ENGINE_PATH/packages/castle_window.lpk'
-        sh 'lazbuild $CASTLE_ENGINE_PATH/packages/castle_components.lpk'
+        // These don't help
+        // sh 'lazbuild $CASTLE_ENGINE_PATH/packages/castle_base.lpk'
+        // sh 'lazbuild $CASTLE_ENGINE_PATH/packages/castle_window.lpk'
+        // sh 'lazbuild $CASTLE_ENGINE_PATH/packages/castle_components.lpk'
         sh 'lazbuild first_3d_application/project1.lpi'
         sh 'lazbuild 2d_game/project1.lpi'
         sh 'lazbuild fps_game/project1.lpi'
       }
     }
+    */
     stage('Build With CGE Build Tool') {
       steps {
         sh 'cd 2d_game_android_and_desktop/ && castle-engine package --os=win64 --cpu=x86_64 --verbose'
