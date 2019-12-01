@@ -16,6 +16,9 @@ pipeline {
   stages {
     stage('Build With Lazarus') {
       steps {
+        sh 'lazbuild $CASTLE_ENGINE_PATH/packages/castle_base.lpk'
+        sh 'lazbuild $CASTLE_ENGINE_PATH/packages/castle_window.lpk'
+        sh 'lazbuild $CASTLE_ENGINE_PATH/packages/castle_components.lpk'
         sh 'lazbuild first_3d_application/project1.lpi'
         sh 'lazbuild 2d_game/project1.lpi'
         sh 'lazbuild fps_game/project1.lpi'
