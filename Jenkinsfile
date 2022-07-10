@@ -14,24 +14,29 @@ pipeline {
     }
   }
   stages {
-    /* TODO: Using lazbuild from Jenkins doesn't work now.
+    stage('Build CGE Lazarus packages (by lazbuild)') {
+      steps {
+        sh 'echo "Castle Game Engine in ${CASTLE_ENGINE_PATH}"'
+        sh 'lazbuild --add-package-link "${CASTLE_ENGINE_PATH}"src/vampyre_imaginglib/src/Packages/VampyreImagingPackage.lpk'
+        sh 'lazbuild --add-package-link "${CASTLE_ENGINE_PATH}"src/vampyre_imaginglib/src/Packages/VampyreImagingPackageExt.lpk'
+        sh 'lazbuild --add-package-link "${CASTLE_ENGINE_PATH}"packages/castle_base.lpk'
+        sh 'lazbuild --add-package-link "${CASTLE_ENGINE_PATH}"packages/castle_window.lpk'
+        sh 'lazbuild --add-package-link "${CASTLE_ENGINE_PATH}"packages/castle_components.lpk'
+      }
+    }
     stage('Build With Lazarus') {
       steps {
-        // These don't help
-        // sh 'lazbuild $CASTLE_ENGINE_PATH/packages/castle_base.lpk'
-        // sh 'lazbuild $CASTLE_ENGINE_PATH/packages/castle_window.lpk'
-        // sh 'lazbuild $CASTLE_ENGINE_PATH/packages/castle_components.lpk'
         sh 'lazbuild first_3d_application/project1.lpi'
         sh 'lazbuild 2d_game/project1.lpi'
         sh 'lazbuild fps_game/project1.lpi'
       }
     }
-    */
     stage('Build With CGE Build Tool') {
       steps {
         sh 'cd 2d_game_android_and_desktop/ && castle-engine package --os=win64 --cpu=x86_64 --verbose'
         sh 'cd 2d_game_android_and_desktop/ && castle-engine package --os=win32 --cpu=i386 --verbose'
         sh 'cd 2d_game_android_and_desktop/ && castle-engine package --os=linux --cpu=x86_64 --verbose'
+        sh 'cd 2d_game_android_and_desktop/ && castle-engine package --target=android --verbose'
       }
     }
   }

@@ -27,7 +27,7 @@ implementation
 
 {$R *.lfm}
 
-uses CastleFilesUtils, CastleScene;
+uses CastleFilesUtils, CastleScene, CastleViewport, CastleCameras;
 
 procedure TForm1.Button1Click(Sender: TObject);
 begin
@@ -37,12 +37,19 @@ end;
 procedure TForm1.FormCreate(Sender: TObject);
 var
   Scene: TCastleScene;
+  Viewport: TCastleViewport;
 begin
   Scene := TCastleScene.Create(Application);
   Scene.Load(ApplicationData('medkit.x3d'));
 
-  CastleControl1.SceneManager.Items.Add(Scene);
-  CastleControl1.SceneManager.MainScene := Scene;
+  Viewport := TCastleViewport.Create(Application);
+  Viewport.FullSize := true;
+  Viewport.AutoCamera := true;
+  Viewport.InsertFront(TCastleExamineNavigation.Create(Application));
+  Viewport.Items.Add(Scene);
+  Viewport.Items.MainScene := Scene;
+
+  CastleControl1.Controls.InsertFront(Viewport);
 end;
 
 end.

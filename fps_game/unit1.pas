@@ -6,11 +6,12 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  Buttons, ExtCtrls, CastleControl, CastlePlayer, X3DNodes;
+  Buttons, ExtCtrls,
+  CastleControl, CastlePlayer, X3DNodes, CastleLevels, CastleViewport,
+  CastleTransformExtra;
 
 type
   TForm1 = class(TForm)
-    Player: TPlayer;
     CastleControl1: TCastleControl;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
@@ -23,6 +24,9 @@ type
   private
     Root: TX3DRootNode;
     Sun: TSpotLightNode;
+    Viewport: TCastleViewport;
+    Player: TPlayer;
+    Level: TLevel;
   public
     { public declarations }
   end;
@@ -34,11 +38,11 @@ implementation
 
 {$R *.lfm}
 
-uses CastleLevels, CastleResources, CastleUIControls,
-  CastleVectors, CastleCreatures, Castle3D;
+uses CastleResources, CastleUIControls,
+  CastleVectors, CastleCreatures, CastleTransform;
 
 type
-  TGame2DControls = class(TUIControl)
+  TGame2DControls = class(TCastleUserInterface)
   public
     procedure Render; override;
   end;
@@ -54,7 +58,7 @@ begin
   for I := 0 to Player.Inventory.Count - 1 do
     for J := 0 to Player.Inventory[I].Quantity - 1 do
     begin
-      Player.Inventory[I].Resource.GLImage.Draw(X, 0);
+      Player.Inventory[I].Resource.DrawableImage.Draw(X, 0);
       X += 100;
     end;
 end;
@@ -63,15 +67,21 @@ procedure TForm1.CastleControl1Open(Sender: TObject);
 var
   Game2DControls: TGame2DControls;
 begin
-  Player := TPlayer.Create(CastleControl1.SceneManager);
-  CastleControl1.SceneManager.Items.Add(Player);
-  CastleControl1.SceneManager.Player := Player;
+  Viewport := TCastleViewport.Create(Application);
+  Viewport.FullSize := true;
+  CastleControl1.Controls.InsertFront(Viewport);
 
   Resources.LoadFromFiles;
   Levels.LoadFromFiles;
-  CastleControl1.SceneManager.LoadLevel('bridge');
 
-  Root := CastleControl1.SceneManager.MainScene.RootNode;
+  Player := TPlayer.Create(Application);
+
+  Level := TLevel.Create(Application);
+  Level.Viewport := Viewport;
+  Level.Player := Player;
+  Level.Load('bridge');
+
+  Root := Viewport.Items.MainScene.RootNode;
   Sun := Root.FindNodeByName(TSpotLightNode, 'Sun', true) as TSpotLightNode;
 
   Game2DControls := TGame2DControls.Create(Application);
@@ -80,10 +90,10 @@ end;
 
 procedure TForm1.CastleControl1Update(Sender: TObject);
 var
-  V: TVector3Single;
+  V: TVector3;
 begin
   V := Sun.Location;
-  V[2] := Sin(CastleControl1.SceneManager.MainScene.Time) * 10;
+  V.Z := Sin(Viewport.Items.MainScene.Time) * 10;
   Sun.Location := V;
 end;
 
@@ -96,9 +106,9 @@ begin
   if Hit <> nil then
   begin
     for I := 0 to Hit.Count - 1 do
-      if Hit[I].Item is T3DAlive then
+      if Hit[I].Item is TCastleAlive then
       begin
-        (Hit[I].Item as T3DAlive).Hurt(100, Player.Direction, 1, Player);
+        (Hit[I].Item as TCastleAlive).Hurt(100, Player.Direction, 1, Player);
         Break;
       end;
     FreeAndNil(Hit);
@@ -107,20 +117,20 @@ end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
-  Form1.Caption := ApplicationName + Format(' - FPS: %f', [CastleControl1.Fps.RealTime]);
+  Form1.Caption := ApplicationName + Format(' - FPS: %s', [CastleControl1.Fps.ToString]);
 end;
 
 procedure TForm1.Button1Click(Sender: TObject);
 var
-  P: TVector3Single;
-  Direction: TVector3Single;
+  P: TVector3;
+  Direction: TVector3;
   CreatureResource: TCreatureResource;
 begin
-  P := Player.Position + Player.Direction * 10;
+  P := Player.Translation + Player.Direction * 10;
   Direction := Player.Direction; { by default creature is facing back to player }
   CreatureResource := Resources.FindName('Knight') as TCreatureResource;
   { CreateCreature creates TCreature instance and adds it to SceneManager.Items }
-  CreatureResource.CreateCreature(CastleControl1.SceneManager.Items, P, Direction);
+  CreatureResource.CreateCreature(Level, P, Direction);
 end;
 
 end.

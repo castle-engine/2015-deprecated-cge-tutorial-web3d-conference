@@ -1,48 +1,35 @@
-unit Unit1;
-
 {$mode objfpc}{$H+}
+
+{ Implements the game logic, independent from mobile / standalone. }
+unit GameInitialize;
 
 interface
 
-uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  CastleControl, CastleViewport, CastleTransform, CastleVectors, CastleKeysMouse,
-  CastleScene;
-
-type
-  TForm1 = class(TForm)
-    CastleControl1: TCastleControl;
-    procedure CastleControl1Press(Sender: TObject;
-      const Event: TInputPressRelease);
-    procedure CastleControl1Update(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
-  private
-    Background: TCastleScene;
-    Dragon: TCastleScene;
-    DragonTransform: TCastleTransform;
-    FlyingTarget: TVector2;
-    Viewport: TCastleViewport;
-  public
-    { public declarations }
-  end;
+uses CastleWindow;
 
 var
-  Form1: TForm1;
+  Window: TCastleWindow;
 
 implementation
 
-{$R *.lfm}
+uses Classes, SysUtils, Math,
+  CastleViewport, CastleTransform, CastleVectors, CastleKeysMouse,
+  CastleFilesUtils, CastleSceneCore, CastleUtils, CastleScene;
 
-uses Math,
-  CastleFilesUtils, CastleSceneCore, CastleUtils;
+var
+  Viewport: TCastleViewport;
+  Background: TCastleScene;
+  Dragon: TCastleScene;
+  DragonTransform: TCastleTransform;
+  FlyingTarget: TVector2;
 
-procedure TForm1.CastleControl1Update(Sender: TObject);
+procedure WindowUpdate(Sender: TUIContainer);
 
   function MoveTo(const Start, Target: Single): Single;
   var
     MoveDistance: Single;
   begin
-    MoveDistance := 500 * CastleControl1.Fps.SecondsPassed;
+    MoveDistance := 500 * Window.Fps.SecondsPassed;
     if Start < Target then
       Result := Min(Target, Start + MoveDistance) else
       Result := Max(Target, Start - MoveDistance);
@@ -64,8 +51,7 @@ begin
     DragonTransform.Scale := Vector3( 0.2, 0.2, 0.2);
 end;
 
-procedure TForm1.CastleControl1Press(Sender: TObject;
-  const Event: TInputPressRelease);
+procedure WindowPress(Sender: TUIContainer; const Event: TInputPressRelease);
 begin
   if Event.IsMouseButton(buttonLeft) and
      (Background.PointingDeviceOverItem <> nil) then
@@ -74,7 +60,7 @@ begin
       Background.PointingDeviceOverPoint.Y);
 end;
 
-procedure TForm1.FormCreate(Sender: TObject);
+procedure ApplicationInitialize;
 begin
   //OptimizeExtensiveTransformations := true; // TODO not reliable now in CGE
 
@@ -83,7 +69,7 @@ begin
   Viewport.AutoCamera := true;
   Viewport.Setup2D;
   Viewport.Camera.Orthographic.Height := 700;
-  CastleControl1.Controls.InsertFront(Viewport);
+  Window.Controls.InsertFront(Viewport);
 
   Background := TCastleScene.Create(Application);
   Background.Load('castle-data:/background.x3dv');
@@ -105,4 +91,23 @@ begin
   DragonTransform.Add(Dragon);
 end;
 
+function MyGetApplicationName: string;
+begin
+  Result := 'example_2d_game';
+end;
+
+initialization
+  { This sets SysUtils.ApplicationName.
+    It is useful to make sure it is correct (as early as possible)
+    as our log routines use it. }
+  OnGetApplicationName := @MyGetApplicationName;
+
+  { initialize Application callbacks }
+  Application.OnInitialize := @ApplicationInitialize;
+
+  { create Window and initialize Window callbacks }
+  Window := TCastleWindow.Create(Application);
+  Application.MainWindow := Window;
+  Window.OnUpdate := @WindowUpdate;
+  Window.OnPress := @WindowPress;
 end.
