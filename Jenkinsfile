@@ -36,7 +36,8 @@ pipeline {
         sh 'cd 2d_game_android_and_desktop/ && castle-engine package --os=win64 --cpu=x86_64 --verbose'
         sh 'cd 2d_game_android_and_desktop/ && castle-engine package --os=win32 --cpu=i386 --verbose'
         sh 'cd 2d_game_android_and_desktop/ && castle-engine package --os=linux --cpu=x86_64 --verbose'
-        sh 'cd 2d_game_android_and_desktop/ && castle-engine package --target=android --verbose'
+        // TODO: Android debug build does not work now in Docker+Jenkins
+        // sh 'cd 2d_game_android_and_desktop/ && castle-engine package --target=android --verbose'
       }
     }
   }
