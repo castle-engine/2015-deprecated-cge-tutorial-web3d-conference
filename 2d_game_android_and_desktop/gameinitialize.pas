@@ -74,7 +74,6 @@ begin
   Background := TCastleScene.Create(Application);
   Background.Load('castle-data:/background.x3dv');
   Background.Spatial := [ssRendering, ssDynamicCollisions];
-  Background.Setup2D;
   Background.ProcessEvents := true;
   Viewport.Items.Add(Background);
   Viewport.Items.MainScene := Background;
@@ -87,7 +86,6 @@ begin
   Dragon.Load('castle-data:/dragon/dragon.json');
   Dragon.ProcessEvents := true;
   Dragon.PlayAnimation('flying', true);
-  Dragon.Setup2D;
   DragonTransform.Add(Dragon);
 end;
 
