@@ -100,7 +100,6 @@ begin
   Dragon.Load('castle-data:/dragon/dragon.json');
   Dragon.ProcessEvents := true;
   Dragon.PlayAnimation('flying', true);
-  Dragon.Setup2D;
   DragonTransform.Add(Dragon);
 end;
 
