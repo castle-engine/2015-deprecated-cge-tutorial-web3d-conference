@@ -1,4 +1,6 @@
-# Castle Game Engine Tutorial at Web3D 2015 conference
+# (OBSOLETE) Castle Game Engine Tutorial at Web3D 2015 conference
+
+_This code and tutorial presented engine state in 2015. As of 2023, it's no longer useful -- things presented here still work but they no longer show the recommended approach and they touch some deprecated API points. If you want to have an up-to-date introduction to the engine, see our documentation on https://castle-engine.io/ and article "Bad Chess", https://github.com/castle-engine/bad-chess/ ._
 
 Examples for a tutorial about the [Castle Game Engine](https://castle-engine.io/) presented at _Web3D 2015 conference workshop_.
 
