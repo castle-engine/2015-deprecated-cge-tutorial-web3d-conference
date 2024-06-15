@@ -48,6 +48,10 @@ jobs:
       - name: Castle Game Engine - Build
         run: cd $CASTLE_ENGINE_PATH/tools/build-tool/ && ./castle-engine_compile.sh
 
+      # TODO: 3 projects below are named "project1" in CastleEngineManifest.xml,
+      # so their resulting artifacts have equal names.
+      # We should rename the projects to have different names.
+
       - name: Package Windows (2d_game)
         run: cd 2d_game && castle-engine package --os=win64 --cpu=x86_64 --verbose
       - name: Archive Artifacts
