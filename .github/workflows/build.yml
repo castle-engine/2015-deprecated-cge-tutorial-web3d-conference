@@ -170,7 +170,7 @@ jobs:
       - name: Archive Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: macos-build
+          name: macos-build-2d_game
           path: "2d_game/*-darwin-x86_64.zip"
           if-no-files-found: error
       - name: Package macOS (2d_game_android_and_desktop)
