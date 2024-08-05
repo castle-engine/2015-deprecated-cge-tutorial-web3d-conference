@@ -1,13 +1,21 @@
-*~
+# CGE temp
 castle-engine-output
+
+# Lazarus temp/backup files
 2d_game/lib/
 first_3d_application/lib/
 fps_game/lib/
-project1
-project1.exe
-2d_game_android_and_desktop/example_2d_game
-2d_game_android_and_desktop/example_2d_game.exe
+backup/
 *.lps
+
+# Windows binaries
+*.exe
+
+# Unix binaries
+project1
+2d_game_android_and_desktop/example_2d_game
+
+# other
 *.res
 *.blend1
 *.apk
