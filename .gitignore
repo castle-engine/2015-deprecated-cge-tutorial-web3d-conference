@@ -12,7 +12,8 @@ backup/
 *.exe
 
 # Unix binaries
-project1
+first_3d_application/first_3d_application
+fps_game/example_fps_game
 2d_game_android_and_desktop/example_2d_game
 
 # other
@@ -22,3 +23,4 @@ project1
 *.o
 *.ppu
 *.so
+*.zip

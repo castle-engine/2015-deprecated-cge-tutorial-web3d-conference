@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="project1"
-  lazarus_project="project1.lpi"
+<project name="first_3d_application"
+  lazarus_project="first_3d_application.lpi"
   build_using_lazbuild="true"
 >
 </project>
